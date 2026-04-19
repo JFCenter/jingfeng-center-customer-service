@@ -23,7 +23,7 @@
     "description": "后台管理系统，用于管理知识库、数据源和同步配置",
     "repo": "https://github.com/JFCenter/MCP_Server",
     "path": "jingfeng-admin/",
-    "url": "https://192.168.56.101:3000",
+    "url": "https://admin.kingmocn.com",
     "features": [
       "知识库管理（CRUD）",
       "数据源配置管理",
@@ -33,7 +33,7 @@
   },
   "mcp": {
     "transport": "streamable-http",
-    "endpoint": "http://192.168.56.101:8000/mcp",
+    "endpoint": "https://mcp.kingmocn.com:3000/mcp",
     "tools": [
       "jingfeng_get_available_spaces",
       "jingfeng_find_car_location",
