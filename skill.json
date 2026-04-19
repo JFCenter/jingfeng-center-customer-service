@@ -2,10 +2,10 @@
   "name": "jingfeng-center-customer-service",
   "display_name": "景枫中心客户服务助手",
   "description": "景枫中心购物中心智能客服，解答会员服务、商场信息、停车缴费、商户查询、线上商城等常见问题。",
-  "version": "1.0.0",
-  "author": "JFCenterSkill",
+  "version": "1.1.0",
+  "author": "JFCenter",
   "license": "MIT",
-  "repository": "https://github.com/JFCenterSkill/jingfeng-center-customer-service",
+  "repository": "https://github.com/JFCenter/MCP_Server",
   "category": "customer-service",
   "keywords": [
     "景枫中心",
@@ -18,9 +18,65 @@
     "商场导览",
     "江宁"
   ],
+  "admin_system": {
+    "name": "jingfeng-admin",
+    "description": "后台管理系统，用于管理知识库、数据源和同步配置",
+    "repo": "https://github.com/JFCenter/MCP_Server",
+    "path": "jingfeng-admin/",
+    "url": "https://192.168.56.101:3000",
+    "features": [
+      "知识库管理（CRUD）",
+      "数据源配置管理",
+      "SQL同步配置管理",
+      "停车助手功能"
+    ]
+  },
   "mcp": {
     "transport": "streamable-http",
-    "endpoint": "https://your-mcp-endpoint.example.com/mcp"
+    "endpoint": "http://192.168.56.101:8000/mcp",
+    "tools": [
+      "jingfeng_get_available_spaces",
+      "jingfeng_find_car_location",
+      "jingfeng_route_recommendation",
+      "jingfeng_parking_stats"
+    ]
+  },
+  "mcp_server": {
+    "name": "jingfeng-parking-mcp",
+    "description": "停车场MCP服务器，独立部署",
+    "repo": "https://github.com/JFCenter/jingfeng-parking-mcp",
+    "deployment": "部署在停车场服务器，每5分钟从MySQL同步数据"
+  },
+  "parking_features": {
+    "available_spaces": {
+      "name": "空余车位查询",
+      "description": "查询停车场当前空余车位，支持按楼层/区域筛选",
+      "tool": "jingfeng_get_available_spaces",
+      "data_source": "jingfeng-admin后台同步配置"
+    },
+    "car_location": {
+      "name": "车牌落位查询",
+      "description": "根据车牌号查找车辆停放位置，查询结果自动带出智能路线推荐（电梯间信息）",
+      "tool": "jingfeng_find_car_location",
+      "auto_route": true,
+      "data_source": "实时查询外部数据库"
+    },
+    "route_recommendation": {
+      "name": "路线推荐",
+      "description": "推荐电梯或通道路线",
+      "tool": "jingfeng_route_recommendation"
+    },
+    "parking_stats": {
+      "name": "停车场统计",
+      "description": "获取停车场实时统计数据",
+      "tool": "jingfeng_parking_stats"
+    }
+  },
+  "data_sync": {
+    "strategy": "periodic_sync",
+    "interval_minutes": 5,
+    "source": "mysql",
+    "admin_config": "jingfeng-admin后台管理系统 > 同步配置"
   },
   "tools": [],
   "brand": {
@@ -28,7 +84,7 @@
     "contact_phone": "025-86155999",
     "address": "南京市江宁区双龙大道1698号",
     "hours": "周日至周四 10:00-22:00；周五周六 10:00-22:30",
-    "system_instruction": "你是一名景枫中心购物中心的智能客服助手，性格热情、专业、耐心。回答问题时使用「您好」开场，如需多步骤指引使用「step1 → step2 → ...」格式，关键数字加粗标注，结尾适当添加问候语像朋友聊天一样自然。禁止捏造信息，不确定时引导转人工。景枫中心定位为城市级潮趣新生的社交型购物体验场，位于百家湖畔，地铁1号线百家湖站1号口直达。",
+    "system_instruction": "你是一名景枫中心购物中心的智能客服助手，性格热情，专业、耐心。回答问题时使用「您好」开场，如需多步骤指引使用「step1 → step2 → ...」格式，关键数字加粗标注，结尾适当添加问候语像朋友聊天一样自然。禁止捏造信息，不确定时引导转人工。景枫中心定位为城市级潮趣新生的社交型购物体验场，位于百家湖畔，地铁1号线百家湖站1号口直达。",
     "tone": {
       "type": "热情专业",
       "characteristics": [
@@ -62,7 +118,13 @@
     "parking": {
       "name": "停车缴费",
       "count": 10,
-      "description": "停车收费、找车、充电桩、积分停车、停车发票等"
+      "description": "停车收费、找车、充电桩、积分停车、停车发票等",
+      "mcp_features": {
+        "空余车位查询": "jingfeng_get_available_spaces - 支持B2/B3/B4楼层和A-F区域筛选",
+        "车牌落位查询": "jingfeng_find_car_location - 输入车牌号找车",
+        "路线推荐": "jingfeng_route_recommendation - 推荐电梯和通道路线",
+        "停车场统计": "jingfeng_parking_stats - 实时空余车位和占用率"
+      }
     },
     "online_mall": {
       "name": "线上商城",
