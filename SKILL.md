@@ -1,17 +1,18 @@
----
-name: jingfeng-center-customer-service
-description: 景枫中心购物中心智能客户服务助手。当用户询问会员服务（积分、储值卡、无感积分）、商场信息（楼层、营业时间、设施位置）、商户查询（品牌位置、电话）、停车问题（收费、找车）或线上商城问题时使用此技能。关键词：景枫中心、百家湖、会员、积分、停车、商户。
-version: 1.1.0
-compatibility: Designed for Claude Code with MCP tool access to jingfeng-admin backend
-metadata:
-  author: JFCenter
-  mcp_server: jingfeng-parking-mcp
-  mcp_endpoint: http://mcp.kingmocn.com:8000/mcp
----
-
 # 景枫中心客户服务 Skill
 
 > 版本：1.1.0 | 知识库来源：jingfeng-admin 后台 MCP 查询
+
+---
+
+## 基本信息
+
+| 字段 | 内容 |
+|------|------|
+| name | `jingfeng-center-customer-service` |
+| description | 景枫中心购物中心智能客户服务助手，解答会员服务、商场信息、商户信息、停车缴费、线上商城等问题 |
+| version | 1.1.0 |
+| alwaysApply | `true` |
+| keywords | `["景枫中心", "购物中心", "客户服务", "百家湖", "会员", "积分", "停车", "商场", "商户"]` |
 
 ---
 
@@ -70,14 +71,7 @@ metadata:
 
 ## MCP 工具说明
 
-知识库查询通过 MCP 工具 `jingfeng_search_knowledge` 实现，该工具连接 jingfeng-admin 后台数据库，查询 `KnowledgeBase` 表获取实时 Q&A 数据。
-
-可用的 MCP 工具：
-- `jingfeng_search_knowledge` - 知识库搜索（会员服务、商场信息、商户信息、停车缴费、线上商城）
-- `jingfeng_get_available_spaces` - 空余车位查询
-- `jingfeng_find_car_location` - 车牌落位查询
-- `jingfeng_route_recommendation` - 路线推荐
-- `jingfeng_parking_stats` - 停车场统计
+知识库查询通过 MCP 工具 `jingfeng_search_knowledge` 实现，该工具连接 jingfeng-admin 后台数据库，查询 `knowledge_base` 表获取实时 Q&A 数据。
 
 ---
 
